@@ -25,7 +25,7 @@
 /* Begin PBXFileReference section */
 		45C60DF016A4A54BFB2F7378 /* Pods-FormKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-FormKit/Pods-FormKit.release.xcconfig"; sourceTree = "<group>"; };
 		BABACAEB1120C51B83561876 /* Pods-FormKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FormKit/Pods-FormKit.debug.xcconfig"; sourceTree = "<group>"; };
-		D87C38F31F9804EC00CEDD27 /* FormKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D87C38F31F9804EC00CEDD27 /* FormUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87C38F61F9804EC00CEDD27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D87C38F81F9804EC00CEDD27 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D87C38FD1F9804EC00CEDD27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		D87C38EA1F9804EC00CEDD27 = {
 			isa = PBXGroup;
 			children = (
-				D87C38F51F9804EC00CEDD27 /* FormKit */,
+				D87C38F51F9804EC00CEDD27 /* FormUIKit */,
 				D87C38F41F9804EC00CEDD27 /* Products */,
 				2544854E4EC6BAC5EEEC067F /* Pods */,
 				84BC417E615EDC50977FB28E /* Frameworks */,
@@ -84,12 +84,12 @@
 		D87C38F41F9804EC00CEDD27 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D87C38F31F9804EC00CEDD27 /* FormKit.app */,
+				D87C38F31F9804EC00CEDD27 /* FormUIKit.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D87C38F51F9804EC00CEDD27 /* FormKit */ = {
+		D87C38F51F9804EC00CEDD27 /* FormUIKit */ = {
 			isa = PBXGroup;
 			children = (
 				D8DD1DF11F9805E900C05061 /* Sources */,
@@ -99,7 +99,7 @@
 				D87C38FF1F9804EC00CEDD27 /* LaunchScreen.storyboard */,
 				D87C39021F9804EC00CEDD27 /* Info.plist */,
 			);
-			path = FormKit;
+			path = FormUIKit;
 			sourceTree = "<group>";
 		};
 		D8DD1DF11F9805E900C05061 /* Sources */ = {
@@ -120,9 +120,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D87C38F21F9804EC00CEDD27 /* FormKit */ = {
+		D87C38F21F9804EC00CEDD27 /* FormUIKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D87C39051F9804EC00CEDD27 /* Build configuration list for PBXNativeTarget "FormKit" */;
+			buildConfigurationList = D87C39051F9804EC00CEDD27 /* Build configuration list for PBXNativeTarget "FormUIKit" */;
 			buildPhases = (
 				3278E43108A0F12A08ED3C73 /* [CP] Check Pods Manifest.lock */,
 				D87C38EF1F9804EC00CEDD27 /* Sources */,
@@ -135,9 +135,9 @@
 			);
 			dependencies = (
 			);
-			name = FormKit;
+			name = FormUIKit;
 			productName = FormKit;
-			productReference = D87C38F31F9804EC00CEDD27 /* FormKit.app */;
+			productReference = D87C38F31F9804EC00CEDD27 /* FormUIKit.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -156,7 +156,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D87C38EE1F9804EC00CEDD27 /* Build configuration list for PBXProject "FormKit" */;
+			buildConfigurationList = D87C38EE1F9804EC00CEDD27 /* Build configuration list for PBXProject "FormUIKit" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -169,7 +169,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D87C38F21F9804EC00CEDD27 /* FormKit */,
+				D87C38F21F9804EC00CEDD27 /* FormUIKit */,
 			);
 		};
 /* End PBXProject section */
@@ -386,9 +386,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3WQTW95Z2J;
-				INFOPLIST_FILE = FormKit/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FormUIKit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.sahand.FormKit;
+				PRODUCT_BUNDLE_IDENTIFIER = me.sahand.FormUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -402,9 +402,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3WQTW95Z2J;
-				INFOPLIST_FILE = FormKit/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/FormUIKit/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.sahand.FormKit;
+				PRODUCT_BUNDLE_IDENTIFIER = me.sahand.FormUIKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -414,7 +414,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D87C38EE1F9804EC00CEDD27 /* Build configuration list for PBXProject "FormKit" */ = {
+		D87C38EE1F9804EC00CEDD27 /* Build configuration list for PBXProject "FormUIKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D87C39031F9804EC00CEDD27 /* Debug */,
@@ -423,7 +423,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D87C39051F9804EC00CEDD27 /* Build configuration list for PBXNativeTarget "FormKit" */ = {
+		D87C39051F9804EC00CEDD27 /* Build configuration list for PBXNativeTarget "FormUIKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D87C39061F9804EC00CEDD27 /* Debug */,
