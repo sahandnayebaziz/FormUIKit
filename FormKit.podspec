@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://github.com/sahandnayebaziz/FormKit"
   s.license          = 'MIT'
   s.author           = { "sahandnayebaziz" => "sahand@sahand.me" }
-  s.source           = { :git => "https://github.com/sahandnayebaziz/Hypertext.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/sahandnayebaziz/FormKit.git", :tag => s.version.to_s }
 
   s.ios.deployment_target  = '11.0'
 
