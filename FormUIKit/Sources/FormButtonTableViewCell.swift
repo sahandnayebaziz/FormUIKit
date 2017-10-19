@@ -8,31 +8,31 @@
 
 import UIKit
 
-struct FormButtonDescription: FormFieldDescribable {
-    var tag: String
-    var title: String
+public struct FormButtonDescription: FormFieldDescribable {
+    public var tag: String
+    public var title: String
     
-    var didTapButton: ((FormButtonTableViewCell) -> Void)? = nil
+    public var didTapButton: ((FormButtonTableViewCell) -> Void)? = nil
     
-    var configureCell: ((FormButtonTableViewCell) -> Void)? = nil
+    public var configureCell: ((FormButtonTableViewCell) -> Void)? = nil
     
-    var isValid: ((FormValues) -> Bool) = { _ in return true }
+    public var isValid: ((FormValues) -> Bool) = { _ in return true }
     
-    init(tag: String, title: String) {
+    public init(tag: String, title: String) {
         self.tag = tag
         self.title = title
     }
 }
 
-class FormButtonTableViewCell: UITableViewCell {
+public class FormButtonTableViewCell: UITableViewCell {
     
-    var formButtonDescription: FormButtonDescription? = nil
-    weak var formTableViewController: FormTableViewController? = nil
+    open var formButtonDescription: FormButtonDescription? = nil
+    weak open var formTableViewController: FormTableViewController? = nil
     
-    var layoutComplete = false
-    var button = UIButton(type: .system)
+    open var layoutComplete = false
+    open var button = UIButton(type: .system)
     
-    func set(for description: FormButtonDescription) {
+    open func set(for description: FormButtonDescription) {
         formButtonDescription = description
         if !layoutComplete {
             contentView.addSubview(button)
@@ -53,7 +53,7 @@ class FormButtonTableViewCell: UITableViewCell {
         selectionStyle = .none
     }
     
-    @objc func didTapButton() {
+    @objc open  func didTapButton() {
         formButtonDescription?.didTapButton?(self)
     }
 

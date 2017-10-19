@@ -8,10 +8,10 @@
 
 import UIKit
 
-enum FormFieldType {
+public enum FormFieldType {
     case text(FormTextDescription), button(FormButtonDescription)
     
-    var description: FormFieldDescribable {
+    public var description: FormFieldDescribable {
         switch self {
         case .text(let description):
             return description

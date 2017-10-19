@@ -8,24 +8,24 @@
 
 import UIKit
 
-typealias FormValues = [String: Any]
+public typealias FormValues = [String: Any]
 
-class FormTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, KeyboardAppearanceDelegate {
+open class FormTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, KeyboardAppearanceDelegate {
     
-    var form = Form(sections: []) {
+    open var form = Form(sections: []) {
         didSet {
             tableView.reloadData()
         }
     }
-    var formValues: FormValues = [:]
+    open var formValues: FormValues = [:]
     
-    let tableView = UITableView(frame: .zero, style: .grouped)
+    open let tableView = UITableView(frame: .zero, style: .grouped)
     
-    var keyboardObserver: NSObjectProtocol?
+    open var keyboardObserver: NSObjectProtocol?
     
-    var makesFirstRowFirstResponder = true
+    open var makesFirstRowFirstResponder = true
 
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
 
         view.addSubview(tableView)
@@ -42,7 +42,7 @@ class FormTableViewController: UIViewController, UITableViewDataSource, UITableV
         tableView.keyboardDismissMode = .interactive
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         listenForKeyboardAppearance()
         
@@ -51,28 +51,28 @@ class FormTableViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopListeningForKeyboardAppearance()
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return form.sections.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return form.sections[section].fields.count
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return form.sections[section].header
     }
     
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    open func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return form.sections[section].footer
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         
         let field = form.sections[indexPath.section].fields[indexPath.row]
@@ -96,7 +96,7 @@ class FormTableViewController: UIViewController, UITableViewDataSource, UITableV
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else {
             return
         }
@@ -106,7 +106,7 @@ class FormTableViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    func updateValueFrom(_ cell: UITableViewCell, to value: Any?) {
+    open func updateValueFrom(_ cell: UITableViewCell, to value: Any?) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             fatalError("Could not get indexpath of cell")
         }
@@ -118,7 +118,7 @@ class FormTableViewController: UIViewController, UITableViewDataSource, UITableV
         formDidUpdate()
     }
     
-    func validateIfNeededFrom(_ cell: UITableViewCell) {
+    open func validateIfNeededFrom(_ cell: UITableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else {
             fatalError("Could not get indexpath of cell")
         }
@@ -138,7 +138,7 @@ class FormTableViewController: UIViewController, UITableViewDataSource, UITableV
     
     open func formDidUpdate() {}
     
-    func canGoToNextFrom(_ cell: UITableViewCell) -> UIView? {
+    open func canGoToNextFrom(_ cell: UITableViewCell) -> UIView? {
         guard let indexPathOfCell = tableView.indexPath(for: cell) else {
             return nil
         }
@@ -154,18 +154,18 @@ class FormTableViewController: UIViewController, UITableViewDataSource, UITableV
         return nil
     }
     
-    func keyboardWillHide(toEndHeight height: CGFloat) {
+    open func keyboardWillHide(toEndHeight height: CGFloat) {
         tableView.contentInset = UIEdgeInsets.zero
     }
     
-    func keyboardWillShow(toEndHeight height: CGFloat) {
+    open func keyboardWillShow(toEndHeight height: CGFloat) {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
     }
 
 }
 
-extension FormTableViewController {
-    var allFieldsAreValid: Bool {
+public extension FormTableViewController {
+    public var allFieldsAreValid: Bool {
         let allFields = form.sections.flatMap { return $0.fields }
         let invalidFields = allFields.filter { field in
             switch field {

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D807241D1F9825F500CE6476 /* ExampleFormTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D807241C1F9825F500CE6476 /* ExampleFormTableViewController.swift */; };
 		D87C38F71F9804EC00CEDD27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C38F61F9804EC00CEDD27 /* AppDelegate.swift */; };
-		D87C38F91F9804EC00CEDD27 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C38F81F9804EC00CEDD27 /* ViewController.swift */; };
 		D87C38FE1F9804EC00CEDD27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D87C38FD1F9804EC00CEDD27 /* Assets.xcassets */; };
 		D87C39011F9804EC00CEDD27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87C38FF1F9804EC00CEDD27 /* LaunchScreen.storyboard */; };
 		D8DD1DF31F9805F800C05061 /* KeyboardAppearanceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DD1DF21F9805F800C05061 /* KeyboardAppearanceDelegate.swift */; };
@@ -25,9 +25,9 @@
 /* Begin PBXFileReference section */
 		45C60DF016A4A54BFB2F7378 /* Pods-FormKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-FormKit/Pods-FormKit.release.xcconfig"; sourceTree = "<group>"; };
 		BABACAEB1120C51B83561876 /* Pods-FormKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FormKit/Pods-FormKit.debug.xcconfig"; sourceTree = "<group>"; };
+		D807241C1F9825F500CE6476 /* ExampleFormTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleFormTableViewController.swift; sourceTree = "<group>"; };
 		D87C38F31F9804EC00CEDD27 /* FormUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87C38F61F9804EC00CEDD27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D87C38F81F9804EC00CEDD27 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D87C38FD1F9804EC00CEDD27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D87C39001F9804EC00CEDD27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D87C39021F9804EC00CEDD27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 			children = (
 				D8DD1DF11F9805E900C05061 /* Sources */,
 				D87C38F61F9804EC00CEDD27 /* AppDelegate.swift */,
-				D87C38F81F9804EC00CEDD27 /* ViewController.swift */,
+				D807241C1F9825F500CE6476 /* ExampleFormTableViewController.swift */,
 				D87C38FD1F9804EC00CEDD27 /* Assets.xcassets */,
 				D87C38FF1F9804EC00CEDD27 /* LaunchScreen.storyboard */,
 				D87C39021F9804EC00CEDD27 /* Info.plist */,
@@ -248,9 +248,9 @@
 				D8DD1DFB1F98061000C05061 /* FormFieldType.swift in Sources */,
 				D8DD1E011F98061000C05061 /* FormSection.swift in Sources */,
 				D8DD1DFD1F98061000C05061 /* FormTableViewController.swift in Sources */,
-				D87C38F91F9804EC00CEDD27 /* ViewController.swift in Sources */,
 				D8DD1DFF1F98061000C05061 /* FormButtonTableViewCell.swift in Sources */,
 				D8DD1DF31F9805F800C05061 /* KeyboardAppearanceDelegate.swift in Sources */,
+				D807241D1F9825F500CE6476 /* ExampleFormTableViewController.swift in Sources */,
 				D8DD1E001F98061000C05061 /* FormFieldDescribable.swift in Sources */,
 				D87C38F71F9804EC00CEDD27 /* AppDelegate.swift in Sources */,
 				D8DD1DFE1F98061000C05061 /* Form.swift in Sources */,

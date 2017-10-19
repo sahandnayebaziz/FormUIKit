@@ -8,6 +8,6 @@
 
 import UIKit
 
-struct Form {
-    var sections: [FormSection]
+public struct Form {
+    public var sections: [FormSection]
 }

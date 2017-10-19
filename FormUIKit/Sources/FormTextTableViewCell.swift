@@ -9,9 +9,9 @@
 import UIKit
 import SnapKit
 
-struct FormTextDescription: FormFieldDescribable {
+public struct FormTextDescription: FormFieldDescribable {
     
-    enum FormTextValidationTypes {
+    public enum FormTextValidationTypes {
         case tagNotEmptyString
         
         func isValid(_ description: FormTextDescription, _ values: FormValues) -> Bool {
@@ -25,12 +25,12 @@ struct FormTextDescription: FormFieldDescribable {
         }
     }
     
-    var tag: String
-    var title: String
+    public var tag: String
+    public var title: String
     
-    var configureCell: ((FormTextTableViewCell) -> Void)? = nil
+    public var configureCell: ((FormTextTableViewCell) -> Void)? = nil
     
-    var validateCell: ((FormTextTableViewCell, FormValues) -> Void)? = { cell, values in
+    public var validateCell: ((FormTextTableViewCell, FormValues) -> Void)? = { cell, values in
         if let string = values[cell.formTextDescription!.tag] as? String, string.trimmingCharacters(in: .whitespacesAndNewlines).characters.count == 0 {
             cell.titleLabel.textColor = .red
         } else {
@@ -38,7 +38,7 @@ struct FormTextDescription: FormFieldDescribable {
         }
     }
     
-    func isValid(_ values: FormValues) -> Bool {
+    public func isValid(_ values: FormValues) -> Bool {
         let invalids = validations.filter { !$0.isValid(self, values) }
         if invalids.count > 0 {
             return false
@@ -47,24 +47,24 @@ struct FormTextDescription: FormFieldDescribable {
         return true
     }
     
-    var validations: Set<FormTextValidationTypes> = []
+    public var validations: Set<FormTextValidationTypes> = []
     
-    init(tag: String, title: String) {
+    public init(tag: String, title: String) {
         self.tag = tag
         self.title = title
     }
 }
 
-class FormTextTableViewCell: UITableViewCell, UITextFieldDelegate {
+open class FormTextTableViewCell: UITableViewCell, UITextFieldDelegate {
     
-    var formTextDescription: FormTextDescription? = nil
-    weak var formTableViewController: FormTableViewController? = nil
+    open var formTextDescription: FormTextDescription? = nil
+    open weak var formTableViewController: FormTableViewController? = nil
     
-    var layoutComplete = false
-    var titleLabel = UILabel()
-    var textField = UITextField()
+    open var layoutComplete = false
+    open var titleLabel = UILabel()
+    open var textField = UITextField()
     
-    func set(for description: FormTextDescription, value: Any?) {
+    open func set(for description: FormTextDescription, value: Any?) {
         formTextDescription = description
         resetCell()
         if !layoutComplete {
@@ -105,7 +105,7 @@ class FormTextTableViewCell: UITableViewCell, UITextFieldDelegate {
         selectionStyle = .none
     }
     
-    private func resetCell() {
+    open func resetCell() {
         titleLabel.text = ""
         textField.text = ""
         
@@ -119,30 +119,30 @@ class FormTextTableViewCell: UITableViewCell, UITextFieldDelegate {
         textField.isSecureTextEntry = false
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    open func textFieldDidBeginEditing(_ textField: UITextField) {
         titleLabel.textColor = tintColor
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    open func textFieldDidEndEditing(_ textField: UITextField) {
         formTableViewController?.validateIfNeededFrom(self)
     }
     
-    @objc func textFieldDidChange() {
+    @objc open func textFieldDidChange() {
         formTableViewController?.updateValueFrom(self, to: textField.text!)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let view = formTableViewController?.canGoToNextFrom(self) {
             view.becomeFirstResponder()
         }
         return true
     }
     
-    override var canBecomeFirstResponder: Bool {
+    open override var canBecomeFirstResponder: Bool {
         return true
     }
     
-    override func becomeFirstResponder() -> Bool {
+    open override func becomeFirstResponder() -> Bool {
         super.becomeFirstResponder()
         textField.becomeFirstResponder()
         return true

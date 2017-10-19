@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol FormFieldDescribable {
+public protocol FormFieldDescribable {
     var tag: String { get set }
 }

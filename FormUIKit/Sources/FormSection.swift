@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct FormSection {
+public struct FormSection {
     var header: String?
     var footer: String?
     var fields: [FormFieldType]

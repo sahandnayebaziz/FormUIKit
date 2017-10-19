@@ -8,23 +8,23 @@
 
 import UIKit
 
-protocol KeyboardAppearanceDelegate: class {
+public protocol KeyboardAppearanceDelegate: class {
     func keyboardWillHide(toEndHeight height: CGFloat)
     func keyboardWillShow(toEndHeight height: CGFloat)
     var keyboardObserver: NSObjectProtocol? { get set }
 }
 
-extension KeyboardAppearanceDelegate where Self: UIViewController {
+public extension KeyboardAppearanceDelegate where Self: UIViewController {
     
     // This method must be called in the view controller.
-    func listenForKeyboardAppearance() {
+    public func listenForKeyboardAppearance() {
         self.keyboardObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil, queue: nil) { [weak self] notification in
             self?.handle(notification: notification)
         }
         
     }
     
-    func stopListeningForKeyboardAppearance() {
+    public func stopListeningForKeyboardAppearance() {
         NotificationCenter.default.removeObserver(self.keyboardObserver as Any)
         self.keyboardObserver = nil
     }
