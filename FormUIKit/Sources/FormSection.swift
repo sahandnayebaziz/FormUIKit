@@ -9,17 +9,17 @@
 import UIKit
 
 public struct FormSection {
-    var header: String?
-    var footer: String?
-    var fields: [FormFieldType]
+    public var header: String?
+    public var footer: String?
+    public var fields: [FormFieldType]
     
-    init() {
+    public init() {
         self.header = nil
         self.footer = nil
         self.fields = []
     }
     
-    init(header: String?, footer: String?, fields: [FormFieldType]) {
+    public init(header: String?, footer: String?, fields: [FormFieldType]) {
         self.header = header
         self.footer = footer
         self.fields = fields
