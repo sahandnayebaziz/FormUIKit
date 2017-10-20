@@ -30,8 +30,8 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
 
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.size.equalTo(view.safeAreaLayoutGuide)
-            make.center.equalTo(view.safeAreaLayoutGuide)
+            make.size.equalTo(view)
+            make.center.equalTo(view)
         }
         tableView.dataSource = self
         tableView.delegate = self
