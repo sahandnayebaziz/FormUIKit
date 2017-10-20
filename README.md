@@ -1,1 +1,1 @@
-![FormUIKit Header Image](header.png)
+![FormUIKit Header Image](header.jpg)
