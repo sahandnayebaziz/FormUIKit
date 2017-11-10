@@ -29,10 +29,19 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
         super.viewDidLoad()
 
         view.addSubview(tableView)
+        
         tableView.snp.makeConstraints { make in
-            make.size.equalTo(view)
-            make.center.equalTo(view)
+            if #available(iOS 11.0, *) {
+                make.size.equalTo(view.safeAreaLayoutGuide)
+                make.center.equalTo(view.safeAreaLayoutGuide)
+            } else {
+                make.top.equalTo(topLayoutGuide.snp.bottom)
+                make.bottom.equalTo(bottomLayoutGuide.snp.top)
+                make.left.equalTo(view)
+                make.right.equalTo(view)
+            }
         }
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
