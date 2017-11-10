@@ -17,7 +17,7 @@ public struct FormTextDescription: FormFieldDescribable {
         func isValid(_ description: FormTextDescription, _ values: FormValues) -> Bool {
             switch self {
             case .tagNotEmptyString:
-                guard let string = values[description.tag] as? String, string.trimmingCharacters(in: .whitespacesAndNewlines).characters.count > 0 else {
+                guard let string = values[description.tag] as? String, string.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 else {
                     return false
                 }
                 return true
@@ -31,7 +31,7 @@ public struct FormTextDescription: FormFieldDescribable {
     public var configureCell: ((FormTextTableViewCell) -> Void)? = nil
     
     public var validateCell: ((FormTextTableViewCell, FormValues) -> Void)? = { cell, values in
-        if let string = values[cell.formTextDescription!.tag] as? String, string.trimmingCharacters(in: .whitespacesAndNewlines).characters.count == 0 {
+        if let string = values[cell.formTextDescription!.tag] as? String, string.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             cell.titleLabel.textColor = .red
         } else {
             cell.titleLabel.textColor = cell.textField.isFirstResponder ? cell.tintColor : UIColor.black
