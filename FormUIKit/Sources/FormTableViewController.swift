@@ -48,6 +48,7 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
         tableView.estimatedRowHeight = 44
         tableView.register(FormTextTableViewCell.self, forCellReuseIdentifier: "FormTextTableViewCell")
         tableView.register(FormButtonTableViewCell.self, forCellReuseIdentifier: "FormButtonTableViewCell")
+        tableView.register(FormPickerTableViewCell.self, forCellReuseIdentifier: "FormPickerTableViewCell")
         tableView.keyboardDismissMode = .interactive
     }
     
@@ -100,6 +101,14 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
             buttonCell.formTableViewController = self
             buttonCell.set(for: description)
             description.configureCell?(buttonCell)
+        case .picker(let description):
+            let pickerCell = tableView.dequeueReusableCell(withIdentifier: "FormPickerTableViewCell", for: indexPath) as! FormPickerTableViewCell
+            cell = pickerCell
+            pickerCell.formTableViewController = self
+            pickerCell.set(for: description, value: formValues[description.tag])
+            
+            description.configureCell?(pickerCell)
+            description.validateCell?(pickerCell, formValues)
         }
         
         return cell
@@ -142,6 +151,12 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
             description.validateCell?(textCell, formValues)
         case .button(_):
             break
+        case .picker(let description):
+            guard let pickerCell = cell as? FormPickerTableViewCell else {
+                fatalError("Not a picker cell")
+            }
+            
+            description.validateCell?(pickerCell, formValues)
         }
     }
     
@@ -182,6 +197,8 @@ public extension FormTableViewController {
                 return description.isValid(formValues) == false
             case .button(_):
                 return true
+            case .picker(let description):
+                return description.isValid(formValues) == false
             }
             }
         return invalidFields.isEmpty

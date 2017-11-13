@@ -9,13 +9,15 @@
 import UIKit
 
 public enum FormFieldType {
-    case text(FormTextDescription), button(FormButtonDescription)
+    case text(FormTextDescription), button(FormButtonDescription), picker(FormPickerDescription)
     
     public var description: FormFieldDescribable {
         switch self {
         case .text(let description):
             return description
         case .button(let description):
+            return description
+        case .picker(let description):
             return description
         }
     }
