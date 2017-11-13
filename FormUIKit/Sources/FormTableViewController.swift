@@ -181,7 +181,7 @@ public extension FormTableViewController {
             case .text(let description):
                 return description.isValid(formValues) == false
             case .button(_):
-                return true
+                return false
             }
             }
         return invalidFields.isEmpty
