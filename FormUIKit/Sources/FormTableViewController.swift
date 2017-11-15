@@ -24,10 +24,10 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
     open var keyboardObserver: NSObjectProtocol?
     
     open var makesFirstRowFirstResponder = true
-
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
@@ -48,6 +48,7 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
         tableView.estimatedRowHeight = 44
         tableView.register(FormTextTableViewCell.self, forCellReuseIdentifier: "FormTextTableViewCell")
         tableView.register(FormButtonTableViewCell.self, forCellReuseIdentifier: "FormButtonTableViewCell")
+        tableView.register(FormPickerTableViewCell.self, forCellReuseIdentifier: "FormPickerTableViewCell")
         tableView.keyboardDismissMode = .interactive
     }
     
@@ -100,6 +101,14 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
             buttonCell.formTableViewController = self
             buttonCell.set(for: description)
             description.configureCell?(buttonCell)
+        case .picker(let description):
+            let pickerCell = tableView.dequeueReusableCell(withIdentifier: "FormPickerTableViewCell", for: indexPath) as! FormPickerTableViewCell
+            cell = pickerCell
+            pickerCell.formTableViewController = self
+            pickerCell.set(for: description, value: formValues[description.tag])
+            
+            description.configureCell?(pickerCell)
+            description.validateCell?(pickerCell, formValues)
         }
         
         return cell
@@ -142,6 +151,12 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
             description.validateCell?(textCell, formValues)
         case .button(_):
             break
+        case .picker(let description):
+            guard let pickerCell = cell as? FormPickerTableViewCell else {
+                fatalError("Not a picker cell")
+            }
+            
+            description.validateCell?(pickerCell, formValues)
         }
     }
     
@@ -151,15 +166,15 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
         guard let indexPathOfCell = tableView.indexPath(for: cell) else {
             return nil
         }
-
+        
         if let nextCellInSection = tableView.cellForRow(at: IndexPath(row: indexPathOfCell.row + 1, section: indexPathOfCell.section)) {
             return nextCellInSection
         }
-
+        
         if let nextCellInTableView = tableView.cellForRow(at: IndexPath(row: 0, section: indexPathOfCell.section + 1)) {
             return nextCellInTableView
         }
-
+        
         return nil
     }
     
@@ -170,7 +185,7 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
     open func keyboardWillShow(toEndHeight height: CGFloat) {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
     }
-
+    
 }
 
 public extension FormTableViewController {
@@ -182,8 +197,10 @@ public extension FormTableViewController {
                 return description.isValid(formValues) == false
             case .button(_):
                 return false
+            case .picker(let description):
+                return description.isValid(formValues) == false
             }
-            }
+        }
         return invalidFields.isEmpty
     }
 }

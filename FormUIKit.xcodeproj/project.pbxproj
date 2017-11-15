@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D807241D1F9825F500CE6476 /* ExampleFormTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D807241C1F9825F500CE6476 /* ExampleFormTableViewController.swift */; };
+		D82C95791FB968A500F0C3D5 /* FormPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D82C95781FB968A500F0C3D5 /* FormPickerTableViewCell.swift */; };
 		D87C38F71F9804EC00CEDD27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C38F61F9804EC00CEDD27 /* AppDelegate.swift */; };
 		D87C38FE1F9804EC00CEDD27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D87C38FD1F9804EC00CEDD27 /* Assets.xcassets */; };
 		D87C39011F9804EC00CEDD27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87C38FF1F9804EC00CEDD27 /* LaunchScreen.storyboard */; };
@@ -26,6 +27,7 @@
 		45C60DF016A4A54BFB2F7378 /* Pods-FormKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-FormKit/Pods-FormKit.release.xcconfig"; sourceTree = "<group>"; };
 		BABACAEB1120C51B83561876 /* Pods-FormKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FormKit/Pods-FormKit.debug.xcconfig"; sourceTree = "<group>"; };
 		D807241C1F9825F500CE6476 /* ExampleFormTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleFormTableViewController.swift; sourceTree = "<group>"; };
+		D82C95781FB968A500F0C3D5 /* FormPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormPickerTableViewCell.swift; sourceTree = "<group>"; };
 		D87C38F31F9804EC00CEDD27 /* FormUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FormUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87C38F61F9804EC00CEDD27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D87C38FD1F9804EC00CEDD27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				D8DD1DF71F98061000C05061 /* Form.swift */,
+				D82C95781FB968A500F0C3D5 /* FormPickerTableViewCell.swift */,
 				D8DD1DF81F98061000C05061 /* FormButtonTableViewCell.swift */,
 				D8DD1DF91F98061000C05061 /* FormFieldDescribable.swift */,
 				D8DD1DF41F98060F00C05061 /* FormFieldType.swift */,
@@ -246,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8DD1DFB1F98061000C05061 /* FormFieldType.swift in Sources */,
+				D82C95791FB968A500F0C3D5 /* FormPickerTableViewCell.swift in Sources */,
 				D8DD1E011F98061000C05061 /* FormSection.swift in Sources */,
 				D8DD1DFD1F98061000C05061 /* FormTableViewController.swift in Sources */,
 				D8DD1DFF1F98061000C05061 /* FormButtonTableViewCell.swift in Sources */,
