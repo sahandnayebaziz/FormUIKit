@@ -18,7 +18,10 @@ public struct FormPickerDescription: FormFieldDescribable {
     public var title: String
     
     public var dataSourceForPicker: (() -> UIPickerViewDataSource)? = nil
-    public var valueForPickerSelection: ((_ row: Int, _ component: Int) -> Any)? = nil
+    
+    public var pickerRowTitleForRow: ((_ row: Int, _ component: Int) -> String)? = nil
+    public var textFieldTitleForRow: ((_ row: Int, _ component: Int) -> String)? = nil
+    public var valueForRow: ((_ row: Int, _ component: Int) -> Any)? = nil
     
     public var configureCell: ((FormPickerTableViewCell) -> Void)? = nil
     
@@ -49,6 +52,8 @@ public class FormPickerTableViewCell: UITableViewCell, UITextFieldDelegate, UIPi
         formPickerDescription = description
         resetCell()
         if !layoutComplete {
+            selectionStyle = .none
+            
             contentView.addSubview(titleLabel)
             titleLabel.snp.makeConstraints { make in
                 make.leading.equalTo(contentView.snp.leadingMargin)
@@ -73,7 +78,7 @@ public class FormPickerTableViewCell: UITableViewCell, UITextFieldDelegate, UIPi
             textField.adjustsFontForContentSizeCategory = true
             textField.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .horizontal)
             textField.delegate = self
-            textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+            textField.inputView = picker
             
             layoutComplete = true
         }
@@ -83,13 +88,23 @@ public class FormPickerTableViewCell: UITableViewCell, UITextFieldDelegate, UIPi
             textField.text = value
         }
         
-        selectionStyle = .none
+        guard let dataSource = description.dataSourceForPicker?() else {
+            fatalError("No data source for picker cell")
+        }
+        picker.dataSource = dataSource
+        picker.delegate = self
         
-        if description.dataSourceForPicker != nil && description.valueForPickerSelection != nil {
-            picker.dataSource = description.dataSourceForPicker!()
-            textField.inputView = picker
+        guard let _ = description.pickerRowTitleForRow else {
+            fatalError("No pickerRowTitleForRow function")
         }
         
+        guard let _ = description.textFieldTitleForRow else {
+            fatalError("No pickerRowTitleForRow function")
+        }
+        
+        guard let _ = description.valueForRow else {
+            fatalError("No valueForRow function")
+        }
     }
     
     open func resetCell() {
@@ -110,21 +125,6 @@ public class FormPickerTableViewCell: UITableViewCell, UITextFieldDelegate, UIPi
         titleLabel.textColor = tintColor
     }
     
-    open func textFieldDidEndEditing(_ textField: UITextField) {
-        formTableViewController?.validateIfNeededFrom(self)
-    }
-    
-    @objc open func textFieldDidChange() {
-        formTableViewController?.updateValueFrom(self, to: textField.text!)
-    }
-    
-    open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let view = formTableViewController?.canGoToNextFrom(self) {
-            view.becomeFirstResponder()
-        }
-        return true
-    }
-    
     open override var canBecomeFirstResponder: Bool {
         return true
     }
@@ -136,7 +136,17 @@ public class FormPickerTableViewCell: UITableViewCell, UITextFieldDelegate, UIPi
     }
     
     public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let item = pickerView.delegate?.pickerView(pickerView, titleForRow: row, forComponent: component)
+        guard let textFieldTitle = formPickerDescription?.textFieldTitleForRow?(row, component),
+            let value = formPickerDescription?.valueForRow?(row, component) else {
+                fatalError("Could not manage getting title and value after picker row selection.")
+        }
+        
+        textField.text = textFieldTitle
+        formTableViewController?.updateValueFrom(self, to: value)
     }
-
+    
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return formPickerDescription?.pickerRowTitleForRow?(row, component)
+    }
+    
 }

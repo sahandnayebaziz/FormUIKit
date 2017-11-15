@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-
+class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataSource {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,8 +36,20 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
         picker.dataSourceForPicker = {
             return self
         }
-        picker.valueForPickerSelection = { row, component in
-            return "Hello \(row)"
+        
+        // pickerRowTitleForRow is reponsible for what text shows up in each row in the picker
+        picker.pickerRowTitleForRow = { row, _ in
+            return ExampleContent.countries[row].name
+        }
+        
+        // textFieldTitleForRow is responsible for what text visually appears in textField in the form when you land on a row in the picker
+        picker.textFieldTitleForRow = { row, _ in
+            return ExampleContent.countries[row].emoji
+        }
+        
+        // valueForRow is responsible for what value actually gets put into formValues when you make a choice
+        picker.valueForRow = { row, component in
+            return ExampleContent.countries[row]
         }
         form.sections.append(FormSection(header: "Pickers", footer: "Pickers are simple cells with a UILabel and a UITextField with a picker input.", fields: [.picker(picker)]))
     }
@@ -47,10 +59,21 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 100
+        return ExampleContent.countries.count
     }
+}
+
+struct ExampleContent {
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "hello world!!!! \(row)"
+    static let countries: [Country] = [
+        Country(abbreviation: "CA", name: "Canada", emoji: "🇨🇦"),
+        Country(abbreviation: "FR", name: "France", emoji: "🇫🇷"),
+        Country(abbreviation: "US", name: "United States", emoji: "🇺🇸"),
+    ]
+    
+    struct Country {
+        let abbreviation: String
+        let name: String
+        let emoji: String
     }
 }

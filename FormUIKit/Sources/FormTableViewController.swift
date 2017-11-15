@@ -24,10 +24,10 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
     open var keyboardObserver: NSObjectProtocol?
     
     open var makesFirstRowFirstResponder = true
-
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
@@ -166,15 +166,15 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
         guard let indexPathOfCell = tableView.indexPath(for: cell) else {
             return nil
         }
-
+        
         if let nextCellInSection = tableView.cellForRow(at: IndexPath(row: indexPathOfCell.row + 1, section: indexPathOfCell.section)) {
             return nextCellInSection
         }
-
+        
         if let nextCellInTableView = tableView.cellForRow(at: IndexPath(row: 0, section: indexPathOfCell.section + 1)) {
             return nextCellInTableView
         }
-
+        
         return nil
     }
     
@@ -185,7 +185,7 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
     open func keyboardWillShow(toEndHeight height: CGFloat) {
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
     }
-
+    
 }
 
 public extension FormTableViewController {
@@ -196,11 +196,11 @@ public extension FormTableViewController {
             case .text(let description):
                 return description.isValid(formValues) == false
             case .button(_):
-                return true
+                return false
             case .picker(let description):
                 return description.isValid(formValues) == false
             }
-            }
+        }
         return invalidFields.isEmpty
     }
 }
