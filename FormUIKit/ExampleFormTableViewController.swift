@@ -12,12 +12,14 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Example"
         
         var textField = FormTextDescription(tag: "typeSomething", title: "Label")
         textField.configureCell = {
             $0.textField.textAlignment = .right
             $0.textField.placeholder = "Field"
         }
+        textField.validations.insert(.tagNotNilOrEmptyString)
         form.sections.append(FormSection(header: "Text fields", footer: "Text fields are simple cells with a UILabel and a UITextField.", fields: [.text(textField)]))
         
         var button = FormButtonDescription(tag: "sayHelloWorld", title: "Say \"Hello World\"")
@@ -29,6 +31,7 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
         form.sections.append(FormSection(header: "Buttons", footer: "Buttons are simple cells with a UIButton in them.", fields: [.button(button)]))
         
         var picker = FormPickerDescription(tag: "country", title: "Pick a country")
+        picker.validations.insert(.tagNotNil)
         picker.configureCell = {
             $0.textField.textAlignment = .right
             $0.textField.placeholder = "Choice"
@@ -52,6 +55,9 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
             return ExampleContent.countries[row]
         }
         form.sections.append(FormSection(header: "Pickers", footer: "Pickers are simple cells with a UILabel and a UITextField with a picker input.", fields: [.picker(picker)]))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapDone))
+        navigationItem.rightBarButtonItem?.isEnabled = false // initially set to false, to be set to true in `formDidUpdate` as fields are filled
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -60,6 +66,16 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return ExampleContent.countries.count
+    }
+    
+    override func formDidUpdate() {
+        navigationItem.rightBarButtonItem?.isEnabled = allFieldsAreValid
+    }
+    
+    @objc func didTapDone() {
+        let alert = UIAlertController(title: "The form is valid!", message: "FormUIKit's validation can be used to quite quickly hook up form views that don't allow actions until all the fields have been field.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

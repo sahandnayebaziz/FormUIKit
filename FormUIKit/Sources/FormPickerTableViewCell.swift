@@ -27,10 +27,16 @@ public struct FormPickerDescription: FormFieldDescribable {
     
     public var validateCell: ((FormPickerTableViewCell, FormValues) -> Void)? = nil
     
-    public var isValid: ((FormValues) -> Bool) = { _ in
-        // TODO: implement like text cell
+    public func isValid(_ values: FormValues) -> Bool {
+        let invalids = validations.filter { !$0.isValid(self, values) }
+        if invalids.count > 0 {
+            return false
+        }
+        
         return true
     }
+    
+    public var validations: Set<FormValidationTypes> = []
     
     public init(tag: String, title: String) {
         self.tag = tag

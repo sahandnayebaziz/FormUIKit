@@ -11,20 +11,6 @@ import SnapKit
 
 public struct FormTextDescription: FormFieldDescribable {
     
-    public enum FormTextValidationTypes {
-        case tagNotEmptyString
-        
-        func isValid(_ description: FormTextDescription, _ values: FormValues) -> Bool {
-            switch self {
-            case .tagNotEmptyString:
-                guard let string = values[description.tag] as? String, string.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 else {
-                    return false
-                }
-                return true
-            }
-        }
-    }
-    
     public var tag: String
     public var title: String
     
@@ -47,7 +33,7 @@ public struct FormTextDescription: FormFieldDescribable {
         return true
     }
     
-    public var validations: Set<FormTextValidationTypes> = []
+    public var validations: Set<FormValidationTypes> = []
     
     public init(tag: String, title: String) {
         self.tag = tag
