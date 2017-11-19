@@ -1,5 +1,5 @@
 //
-//  FormValidationTypes.swift
+//  FormValidationType.swift
 //  FormUIKit
 //
 //  Created by Sahand on 11/14/17.
@@ -8,15 +8,15 @@
 
 import Foundation
 
-public enum FormValidationTypes: String {
+public enum FormValidationType: String {
     case tagNotNil, tagNotNilOrEmptyString
     
-    func isValid(_ description: FormFieldDescribable, _ values: FormValues) -> Bool {
+    func isValidFor(_ tag: String, in values: FormValues) -> Bool {
         switch self {
         case .tagNotNil:
-            return values[description.tag] != nil
+            return values[tag] != nil
         case .tagNotNilOrEmptyString:
-            guard let string = values[description.tag] as? String, string.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 else {
+            guard let string = values[tag] as? String, string.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 else {
                 return false
             }
             return true

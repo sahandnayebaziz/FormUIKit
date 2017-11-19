@@ -16,24 +16,13 @@ public struct FormTextDescription: FormFieldDescribable {
     
     public var configureCell: ((FormTextTableViewCell) -> Void)? = nil
     
-    public var validateCell: ((FormTextTableViewCell, FormValues) -> Void)? = { cell, values in
-        if let string = values[cell.formTextDescription!.tag] as? String, string.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-            cell.titleLabel.textColor = .red
-        } else {
+    public var validateCell: ((Bool, Bool, FormTextTableViewCell) -> Void)? = { isValid, isNil, cell in
+        if isNil || isValid {
             cell.titleLabel.textColor = cell.textField.isFirstResponder ? cell.tintColor : UIColor.black
+        } else {
+            cell.titleLabel.textColor = .red
         }
     }
-    
-    public func isValid(_ values: FormValues) -> Bool {
-        let invalids = validations.filter { !$0.isValid(self, values) }
-        if invalids.count > 0 {
-            return false
-        }
-        
-        return true
-    }
-    
-    public var validations: Set<FormValidationTypes> = []
     
     public init(tag: String, title: String) {
         self.tag = tag

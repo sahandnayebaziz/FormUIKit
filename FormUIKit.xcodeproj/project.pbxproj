@@ -12,7 +12,7 @@
 		D87C38F71F9804EC00CEDD27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87C38F61F9804EC00CEDD27 /* AppDelegate.swift */; };
 		D87C38FE1F9804EC00CEDD27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D87C38FD1F9804EC00CEDD27 /* Assets.xcassets */; };
 		D87C39011F9804EC00CEDD27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D87C38FF1F9804EC00CEDD27 /* LaunchScreen.storyboard */; };
-		D8B318D01FBBC17B00A7E837 /* FormValidationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B318CF1FBBC17B00A7E837 /* FormValidationTypes.swift */; };
+		D8B318D01FBBC17B00A7E837 /* FormValidationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B318CF1FBBC17B00A7E837 /* FormValidationType.swift */; };
 		D8DD1DF31F9805F800C05061 /* KeyboardAppearanceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DD1DF21F9805F800C05061 /* KeyboardAppearanceDelegate.swift */; };
 		D8DD1DFB1F98061000C05061 /* FormFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DD1DF41F98060F00C05061 /* FormFieldType.swift */; };
 		D8DD1DFC1F98061000C05061 /* FormTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DD1DF51F98060F00C05061 /* FormTextTableViewCell.swift */; };
@@ -34,7 +34,7 @@
 		D87C38FD1F9804EC00CEDD27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D87C39001F9804EC00CEDD27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D87C39021F9804EC00CEDD27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D8B318CF1FBBC17B00A7E837 /* FormValidationTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationTypes.swift; sourceTree = "<group>"; };
+		D8B318CF1FBBC17B00A7E837 /* FormValidationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormValidationType.swift; sourceTree = "<group>"; };
 		D8DD1DF21F9805F800C05061 /* KeyboardAppearanceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAppearanceDelegate.swift; sourceTree = "<group>"; };
 		D8DD1DF41F98060F00C05061 /* FormFieldType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormFieldType.swift; sourceTree = "<group>"; };
 		D8DD1DF51F98060F00C05061 /* FormTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormTextTableViewCell.swift; sourceTree = "<group>"; };
@@ -110,15 +110,15 @@
 			isa = PBXGroup;
 			children = (
 				D8DD1DF71F98061000C05061 /* Form.swift */,
-				D82C95781FB968A500F0C3D5 /* FormPickerTableViewCell.swift */,
 				D8DD1DF81F98061000C05061 /* FormButtonTableViewCell.swift */,
 				D8DD1DF91F98061000C05061 /* FormFieldDescribable.swift */,
 				D8DD1DF41F98060F00C05061 /* FormFieldType.swift */,
+				D82C95781FB968A500F0C3D5 /* FormPickerTableViewCell.swift */,
 				D8DD1DFA1F98061000C05061 /* FormSection.swift */,
 				D8DD1DF61F98060F00C05061 /* FormTableViewController.swift */,
 				D8DD1DF51F98060F00C05061 /* FormTextTableViewCell.swift */,
+				D8B318CF1FBBC17B00A7E837 /* FormValidationType.swift */,
 				D8DD1DF21F9805F800C05061 /* KeyboardAppearanceDelegate.swift */,
-				D8B318CF1FBBC17B00A7E837 /* FormValidationTypes.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -259,7 +259,7 @@
 				D8DD1DF31F9805F800C05061 /* KeyboardAppearanceDelegate.swift in Sources */,
 				D807241D1F9825F500CE6476 /* ExampleFormTableViewController.swift in Sources */,
 				D8DD1E001F98061000C05061 /* FormFieldDescribable.swift in Sources */,
-				D8B318D01FBBC17B00A7E837 /* FormValidationTypes.swift in Sources */,
+				D8B318D01FBBC17B00A7E837 /* FormValidationType.swift in Sources */,
 				D87C38F71F9804EC00CEDD27 /* AppDelegate.swift in Sources */,
 				D8DD1DFE1F98061000C05061 /* Form.swift in Sources */,
 				D8DD1DFC1F98061000C05061 /* FormTextTableViewCell.swift in Sources */,

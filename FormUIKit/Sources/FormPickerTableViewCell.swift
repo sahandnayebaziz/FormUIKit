@@ -25,18 +25,13 @@ public struct FormPickerDescription: FormFieldDescribable {
     
     public var configureCell: ((FormPickerTableViewCell) -> Void)? = nil
     
-    public var validateCell: ((FormPickerTableViewCell, FormValues) -> Void)? = nil
-    
-    public func isValid(_ values: FormValues) -> Bool {
-        let invalids = validations.filter { !$0.isValid(self, values) }
-        if invalids.count > 0 {
-            return false
+    public var validateCell: ((Bool, Bool, FormPickerTableViewCell) -> Void)? = { isValid, isNil, cell in
+        if isNil || isValid {
+            cell.titleLabel.textColor = cell.textField.isFirstResponder ? cell.tintColor : UIColor.black
+        } else {
+            cell.titleLabel.textColor = .red
         }
-        
-        return true
     }
-    
-    public var validations: Set<FormValidationTypes> = []
     
     public init(tag: String, title: String) {
         self.tag = tag

@@ -25,6 +25,18 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
     
     open var makesFirstRowFirstResponder = true
     
+    public var allFieldsAreValid: Bool {
+        for section in form.sections {
+            for field in section.fields {
+                if !formTableViewController(valueIsValidForTag: field.description.tag) {
+                    return false
+                }
+            }
+        }
+        
+        return true
+    }
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,10 +94,20 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
         return form.sections[section].footer
     }
     
+    open func formTableViewController(valueIsValidForTag tag: String) -> Bool {
+        return true
+    }
+    
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         
-        let field = form.sections[indexPath.section].fields[indexPath.row]
+        guard let field = fieldForRow(at: indexPath) else {
+            fatalError("Could not get valid field for indexPath")
+        }
+        
+        let isValid = formTableViewController(valueIsValidForTag: field.description.tag)
+        let isNil = valueIsNilFor(field.description.tag)
+        
         switch field {
         case .text(let description):
             let textCell = tableView.dequeueReusableCell(withIdentifier: "FormTextTableViewCell", for: indexPath) as! FormTextTableViewCell
@@ -94,7 +116,7 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
             textCell.set(for: description, value: formValues[description.tag])
             
             description.configureCell?(textCell)
-            description.validateCell?(textCell, formValues)
+            description.validateCell?(isValid, isNil, textCell)
         case .button(let description):
             let buttonCell = tableView.dequeueReusableCell(withIdentifier: "FormButtonTableViewCell", for: indexPath) as! FormButtonTableViewCell
             cell = buttonCell
@@ -108,7 +130,7 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
             pickerCell.set(for: description, value: formValues[description.tag])
             
             description.configureCell?(pickerCell)
-            description.validateCell?(pickerCell, formValues)
+            description.validateCell?(isValid, isNil, pickerCell)
         }
         
         return cell
@@ -138,25 +160,31 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
     
     open func validateIfNeededFrom(_ cell: UITableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else {
-            fatalError("Could not get indexpath of cell")
+            fatalError("No valid indexPath could be found for cell.")
         }
         
-        let field = form.sections[indexPath.section].fields[indexPath.row]
+        guard let field = fieldForRow(at: indexPath), let tag = tagForRow(at: indexPath) else {
+            fatalError("No field or tag could be found for indexPath.")
+        }
+        
+        let isValid = formTableViewController(valueIsValidForTag: tag)
+        let isNil = valueIsNilFor(tag)
+        
         switch field {
         case .text(let description):
             guard let textCell = cell as? FormTextTableViewCell else {
                 fatalError("Not a text cell")
             }
-            
-            description.validateCell?(textCell, formValues)
+
+            description.validateCell?(isValid, isNil, textCell)
         case .button(_):
             break
         case .picker(let description):
             guard let pickerCell = cell as? FormPickerTableViewCell else {
                 fatalError("Not a picker cell")
             }
-            
-            description.validateCell?(pickerCell, formValues)
+
+            description.validateCell?(isValid, isNil, pickerCell)
         }
     }
     
@@ -186,21 +214,45 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: height, right: 0)
     }
     
-}
-
-public extension FormTableViewController {
-    public var allFieldsAreValid: Bool {
-        let allFields = form.sections.flatMap { return $0.fields }
-        let invalidFields = allFields.filter { field in
-            switch field {
-            case .text(let description):
-                return description.isValid(formValues) == false
-            case .button(_):
+    open func fieldForRow(at indexPath: IndexPath) -> FormFieldType? {
+        guard form.sections.indices.contains(indexPath.section) else {
+            return nil
+        }
+        
+        let section = form.sections[indexPath.section]
+        guard section.fields.indices.contains(indexPath.row) else {
+            return nil
+        }
+        
+        return section.fields[indexPath.row]
+    }
+    
+    open func tagForRow(at indexPath: IndexPath) -> String? {
+        guard form.sections.indices.contains(indexPath.section) else {
+            return nil
+        }
+        
+        let section = form.sections[indexPath.section]
+        guard section.fields.indices.contains(indexPath.row) else {
+            return nil
+        }
+        
+        return section.fields[indexPath.row].description.tag
+    }
+    
+    open func valueIsValidFor(_ tag: String, validationTypes: [FormValidationType]) -> Bool {
+        for type in validationTypes {
+            if !type.isValidFor(tag, in: formValues) {
                 return false
-            case .picker(let description):
-                return description.isValid(formValues) == false
             }
         }
-        return invalidFields.isEmpty
+        return true
+    }
+    
+    open func valueIsNilFor(_ tag: String) -> Bool {
+        guard let _ = formValues[tag] else {
+            return true
+        }
+        return false
     }
 }

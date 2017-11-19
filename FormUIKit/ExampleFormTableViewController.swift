@@ -19,7 +19,6 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
             $0.textField.textAlignment = .right
             $0.textField.placeholder = "Field"
         }
-        textField.validations.insert(.tagNotNilOrEmptyString)
         form.sections.append(FormSection(header: "Text fields", footer: "Text fields are simple cells with a UILabel and a UITextField.", fields: [.text(textField)]))
         
         var button = FormButtonDescription(tag: "sayHelloWorld", title: "Say \"Hello World\"")
@@ -31,7 +30,6 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
         form.sections.append(FormSection(header: "Buttons", footer: "Buttons are simple cells with a UIButton in them.", fields: [.button(button)]))
         
         var picker = FormPickerDescription(tag: "country", title: "Pick a country")
-        picker.validations.insert(.tagNotNil)
         picker.configureCell = {
             $0.textField.textAlignment = .right
             $0.textField.placeholder = "Choice"
@@ -62,6 +60,17 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
+    }
+    
+    override func formTableViewController(valueIsValidForTag tag: String) -> Bool {
+        switch tag {
+        case "typeSomething":
+            return valueIsValidFor(tag, validationTypes: [.tagNotNilOrEmptyString])
+        case "country":
+            return valueIsValidFor(tag, validationTypes: [.tagNotNil])
+        default:
+            return true
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
