@@ -59,6 +59,7 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
         tableView.register(FormTextTableViewCell.self, forCellReuseIdentifier: "FormTextTableViewCell")
+        tableView.register(FormTextAreaTableViewCell.self, forCellReuseIdentifier: "FormTextAreaTableViewCell")
         tableView.register(FormButtonTableViewCell.self, forCellReuseIdentifier: "FormButtonTableViewCell")
         tableView.register(FormPickerTableViewCell.self, forCellReuseIdentifier: "FormPickerTableViewCell")
         tableView.keyboardDismissMode = .interactive
@@ -117,6 +118,14 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
             
             description.configureCell?(textCell)
             description.validateCell?(isValid, isNil, textCell)
+        case .textArea(let description):
+            let textAreaCell = tableView.dequeueReusableCell(withIdentifier: "FormTextAreaTableViewCell", for: indexPath) as! FormTextAreaTableViewCell
+            cell = textAreaCell
+            textAreaCell.formTableViewController = self
+            textAreaCell.set(for: description, value: formValues[description.tag])
+            
+            description.configureCell?(textAreaCell)
+            description.valdidateCell?(isValid, isNil, textAreaCell)
         case .button(let description):
             let buttonCell = tableView.dequeueReusableCell(withIdentifier: "FormButtonTableViewCell", for: indexPath) as! FormButtonTableViewCell
             cell = buttonCell
@@ -160,7 +169,7 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
     
     open func validateIfNeededFrom(_ cell: UITableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else {
-            fatalError("No valid indexPath could be found for cell.")
+            return
         }
         
         guard let field = fieldForRow(at: indexPath), let tag = tagForRow(at: indexPath) else {
@@ -177,6 +186,12 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
             }
 
             description.validateCell?(isValid, isNil, textCell)
+        case .textArea(let description):
+            guard let textAreaCell = cell as? FormTextAreaTableViewCell else {
+                fatalError("Wrong cell type")
+            }
+            
+            description.valdidateCell?(isValid, isNil, textAreaCell)
         case .button(_):
             break
         case .picker(let description):

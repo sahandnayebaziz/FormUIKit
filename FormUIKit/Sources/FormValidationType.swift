@@ -9,13 +9,13 @@
 import Foundation
 
 public enum FormValidationType: String {
-    case tagNotNil, tagNotNilOrEmptyString
+    case tagIsNonNil, tagIsNonNilAndNonEmptyString
     
     func isValidFor(_ tag: String, in values: FormValues) -> Bool {
         switch self {
-        case .tagNotNil:
+        case .tagIsNonNil:
             return values[tag] != nil
-        case .tagNotNilOrEmptyString:
+        case .tagIsNonNilAndNonEmptyString:
             guard let string = values[tag] as? String, string.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 else {
                 return false
             }

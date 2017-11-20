@@ -81,6 +81,8 @@ public class FormPickerTableViewCell: UITableViewCell, UITextFieldDelegate, UIPi
             textField.delegate = self
             textField.inputView = picker
             
+            selectionStyle = .none
+            
             layoutComplete = true
         }
         

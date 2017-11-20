@@ -54,7 +54,6 @@ open class FormTextTableViewCell: UITableViewCell, UITextFieldDelegate {
             titleLabel.adjustsFontForContentSizeCategory = true
             titleLabel.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
             
-            textField = UITextField()
             contentView.addSubview(textField)
             textField.snp.makeConstraints { make in
                 make.leading.equalTo(titleLabel.snp.trailing).offset(8)

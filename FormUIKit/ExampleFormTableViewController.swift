@@ -54,6 +54,9 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
         }
         form.sections.append(FormSection(header: "Pickers", footer: "Pickers are simple cells with a UILabel and a UITextField with a picker input.", fields: [.picker(picker)]))
         
+        let commentBox = FormTextAreaDescription(tag: "comments", title: "Comments")
+        form.sections.append(FormSection(header: nil, footer: nil, fields: [.textArea(commentBox)]))
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapDone))
         navigationItem.rightBarButtonItem?.isEnabled = false // initially set to false, to be set to true in `formDidUpdate` as fields are filled
     }
@@ -65,9 +68,11 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
     override func formTableViewController(valueIsValidForTag tag: String) -> Bool {
         switch tag {
         case "typeSomething":
-            return valueIsValidFor(tag, validationTypes: [.tagNotNilOrEmptyString])
+            return valueIsValidFor(tag, validationTypes: [.tagIsNonNilAndNonEmptyString])
         case "country":
-            return valueIsValidFor(tag, validationTypes: [.tagNotNil])
+            return valueIsValidFor(tag, validationTypes: [.tagIsNonNil])
+        case "comments":
+            return valueIsValidFor(tag, validationTypes: [.tagIsNonNilAndNonEmptyString])
         default:
             return true
         }
