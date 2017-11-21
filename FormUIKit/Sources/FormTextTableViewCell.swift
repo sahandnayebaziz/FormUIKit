@@ -15,14 +15,16 @@ public struct FormTextDescription: FormFieldDescribable {
     public var title: String
     
     public var configureCell: ((FormTextTableViewCell) -> Void)? = nil
-    
     public var validateCell: ((Bool, Bool, FormTextTableViewCell) -> Void)? = { isValid, isNil, cell in
         if isNil || isValid {
-            cell.titleLabel.textColor = cell.textField.isFirstResponder ? cell.tintColor : UIColor.black
+            cell.titleLabel.textColor = cell.textField.isFirstResponder ? cell.tintColor : cell.formTextDescription!.titleLabelTextColor
         } else {
             cell.titleLabel.textColor = .red
         }
     }
+    
+    public var titleLabelTextColor: UIColor = .black
+    public var textFieldTextColor: UIColor = .black
     
     public init(tag: String, title: String) {
         self.tag = tag
@@ -83,8 +85,8 @@ open class FormTextTableViewCell: UITableViewCell, UITextFieldDelegate {
         titleLabel.text = ""
         textField.text = ""
         
-        titleLabel.textColor = .black
-        textField.textColor = .black
+        titleLabel.textColor = formTextDescription!.titleLabelTextColor
+        textField.textColor = formTextDescription!.textFieldTextColor
         
         textField.textAlignment = .left
         textField.placeholder = ""

@@ -16,8 +16,17 @@ public struct FormTextAreaDescription: FormFieldDescribable {
     public var textViewHeight: CGFloat = 400
     
     public var configureCell: ((FormTextAreaTableViewCell) -> Void)? = nil
+    public var valdidateCell: ((Bool, Bool, FormTextAreaTableViewCell) -> Void)? = { isValid, isNil, cell in
+        if isNil || isValid {
+            cell.titleLabel.textColor = cell.textView.isFirstResponder ? cell.tintColor : cell.formTextAreaDescription!.titleLabelTextColor
+        } else {
+            cell.titleLabel.textColor = .red
+        }
+    }
+        
     
-    public var valdidateCell: ((Bool, Bool, FormTextAreaTableViewCell) -> Void)? = nil
+    public var titleLabelTextColor: UIColor = .black
+    public var textFieldTextColor: UIColor = .black
     
     public init(tag: String, title: String) {
         self.tag = tag

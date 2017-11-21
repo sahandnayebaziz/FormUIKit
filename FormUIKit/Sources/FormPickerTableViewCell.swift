@@ -18,20 +18,21 @@ public struct FormPickerDescription: FormFieldDescribable {
     public var title: String
     
     public var dataSourceForPicker: (() -> UIPickerViewDataSource)? = nil
-    
     public var pickerRowTitleForRow: ((_ row: Int, _ component: Int) -> String)? = nil
     public var textFieldTitleForRow: ((_ row: Int, _ component: Int) -> String)? = nil
     public var valueForRow: ((_ row: Int, _ component: Int) -> Any)? = nil
     
     public var configureCell: ((FormPickerTableViewCell) -> Void)? = nil
-    
     public var validateCell: ((Bool, Bool, FormPickerTableViewCell) -> Void)? = { isValid, isNil, cell in
         if isNil || isValid {
-            cell.titleLabel.textColor = cell.textField.isFirstResponder ? cell.tintColor : UIColor.black
+            cell.titleLabel.textColor = cell.textField.isFirstResponder ? cell.tintColor : cell.formPickerDescription!.titleLabelTextColor
         } else {
             cell.titleLabel.textColor = .red
         }
     }
+    
+    public var titleLabelTextColor: UIColor = .black
+    public var textFieldTextColor: UIColor = .black
     
     public init(tag: String, title: String) {
         self.tag = tag
@@ -126,6 +127,10 @@ public class FormPickerTableViewCell: UITableViewCell, UITextFieldDelegate, UIPi
     
     open func textFieldDidBeginEditing(_ textField: UITextField) {
         titleLabel.textColor = tintColor
+    }
+    
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        formTableViewController?.validateIfNeededFrom(self)
     }
     
     open override var canBecomeFirstResponder: Bool {
