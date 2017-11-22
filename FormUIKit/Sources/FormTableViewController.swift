@@ -28,9 +28,15 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
     public var allFieldsAreValid: Bool {
         for section in form.sections {
             for field in section.fields {
-                if !formTableViewController(valueIsValidForTag: field.description.tag) {
-                    return false
+                switch field {
+                case .button(_):
+                    continue
+                default:
+                    if !formTableViewController(valueIsValidForTag: field.description.tag) {
+                        return false
+                    }
                 }
+
             }
         }
         
