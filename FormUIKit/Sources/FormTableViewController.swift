@@ -173,7 +173,7 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
         }
         
         guard let field = fieldForRow(at: indexPath), let tag = tagForRow(at: indexPath) else {
-            fatalError("No field or tag could be found for indexPath.")
+            return
         }
         
         let isValid = formTableViewController(valueIsValidForTag: tag)
