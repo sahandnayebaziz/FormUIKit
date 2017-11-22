@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "FormUIKit"
-  s.version          = "0.1.9"
+  s.version          = "0.1.10"
   s.summary          = "Create UITableView-based forms for text input, object selection, and more with little work."
   s.description      = "This allows you to create UITableView-based forms for text input, object selection, and more with little work."
 
