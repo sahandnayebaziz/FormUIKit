@@ -261,6 +261,18 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
         return section.fields[indexPath.row].description.tag
     }
     
+    open func formTableViewController(indexPathForTag tag: String) -> IndexPath? {
+        for sectionIndex in 0..<form.sections.count {
+            for fieldIndex in 0..<form.sections[sectionIndex].fields.count {
+                if form.sections[sectionIndex].fields[fieldIndex].description.tag == tag {
+                    return IndexPath(row: fieldIndex, section: sectionIndex)
+                }
+            }
+        }
+        
+        return nil
+    }
+    
     open func valueIsValidFor(_ tag: String, validationTypes: [FormValidationType]) -> Bool {
         for type in validationTypes {
             if !type.isValidFor(tag, in: formValues) {
