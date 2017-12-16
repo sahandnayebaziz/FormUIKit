@@ -39,8 +39,8 @@ public class FormButtonTableViewCell: UITableViewCell {
             button.snp.makeConstraints { make in
                 make.leading.equalTo(contentView.snp.leadingMargin)
                 make.trailing.equalTo(contentView.snp.trailingMargin)
-                make.top.equalTo(13)
-                make.bottom.equalTo(-13)
+                make.top.equalTo(contentView).offset(8)
+                make.bottom.equalTo(contentView).offset(-8)
             }
             layoutComplete = true
         }
