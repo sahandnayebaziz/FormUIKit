@@ -19,7 +19,8 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
     }
     open var formValues: FormValues = [:]
     
-    open let tableView = UITableView(frame: .zero, style: .grouped)
+    public let tableView = UITableView(frame: .zero, style: .grouped)
+    private var registeredCellIdentifiers: [String: AnyClass] = [:]
     
     open var keyboardObserver: NSObjectProtocol?
     
@@ -146,9 +147,23 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
             
             description.configureCell?(pickerCell)
             description.validateCell?(isValid, isNil, pickerCell)
+        case .custom(let description):
+            guard let customCell = tableView.dequeueReusableCell(withIdentifier: description.cellIdentifier, for: indexPath) as? FormCustomTableViewCell  else {
+                fatalError("Failed to load a FormCustomTableViewCell subclass with the given identifier.")
+            }
+            
+            cell = customCell
+            customCell.set(for: description, value: formValues[description.tag])
+            
+            description.configureCell?(customCell)
+            description.validateCell?(isValid, isNil, customCell)
         }
         
         return cell
+    }
+    
+    open func registerCustomCell<T: UITableViewCell>(cell: T.Type, for identifier: String) {
+        tableView.register(T.self, forCellReuseIdentifier: identifier)
     }
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -206,6 +221,12 @@ open class FormTableViewController: UIViewController, UITableViewDataSource, UIT
             }
 
             description.validateCell?(isValid, isNil, pickerCell)
+        case .custom(let description):
+            guard let customCell = cell as? FormCustomTableViewCell else {
+                fatalError("Not a custom cell")
+            }
+            
+            description.validateCell?(isValid, isNil, customCell)
         }
     }
     

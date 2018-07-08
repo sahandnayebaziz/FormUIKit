@@ -55,7 +55,11 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
         form.sections.append(FormSection(header: "Pickers", footer: "Pickers are simple cells with a UILabel and a UITextField with a picker input.", fields: [.picker(picker)]))
         
         let commentBox = FormTextAreaDescription(tag: "comments", title: "Comments")
-        form.sections.append(FormSection(header: nil, footer: nil, fields: [.textArea(commentBox)]))
+        form.sections.append(FormSection(header: nil, footer: "Text Areas are cells with a UILabel and a UITextView.", fields: [.textArea(commentBox)]))
+        
+        let myCustomCell = FormCustomDescription(tag: "myCustom", cellIdentifier: "MyCustomTableViewCell")
+        registerCustomCell(cell: MyCustomTableViewCell.self, for: myCustomCell.cellIdentifier)
+        form.sections.append(FormSection(header: "Custom", footer: "Custom cells can be configured and registered to show anything.", fields: [.custom(myCustomCell)]))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapDone))
         navigationItem.rightBarButtonItem?.isEnabled = false // initially set to false, to be set to true in `formDidUpdate` as fields are filled
@@ -87,7 +91,7 @@ class ExampleFormTableViewController: FormTableViewController, UIPickerViewDataS
     }
     
     @objc func didTapDone() {
-        let alert = UIAlertController(title: "The form is valid!", message: "FormUIKit's validation can be used to quite quickly hook up form views that don't allow actions until all the fields have been field.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "The form is valid!", message: "FormUIKit's validation can be used to quite quickly hook up form views that don't allow actions until all the fields have been filled.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
@@ -107,3 +111,35 @@ struct ExampleContent {
         let emoji: String
     }
 }
+
+class MyCustomTableViewCell: FormCustomTableViewCell {
+    
+    override func set(for description: FormCustomFieldDescribable, value: Any?) {
+        super.set(for: description, value: value)
+        
+        if !layoutComplete {
+            
+            NSLayoutConstraint.activate([
+                heightAnchor.constraint(equalToConstant: 500)
+            ])
+            
+            let imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(imageView)
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(equalToConstant: 200),
+                imageView.heightAnchor.constraint(equalToConstant: 200),
+                imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                imageView.centerYAnchor.constraint(equalTo: centerYAnchor)
+            ])
+            imageView.clipsToBounds = true
+            imageView.layer.cornerRadius = 10
+            imageView.contentMode = .scaleAspectFill
+            imageView.image = UIImage(named: "Palms")
+            
+            layoutComplete = true
+        }
+    }
+    
+}
+
